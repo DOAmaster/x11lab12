@@ -1,16 +1,10 @@
 //modified by: Derrick Alden
-//
 //3480 Computer Graphics
 //lab12.cpp
 //Author: Gordon Griesel
 //Date: 2017
 //This is a perspective ray tracer.
-//
-//This program is nearly identical to lab7.cpp and lab10.cpp
-//For this assignment, you may start with other lab frameworks.
-//Name your program lab12.cpp.
-//
-//
+//Screenshots taken are turned into a gif animation
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -120,10 +114,12 @@ class Global {
     Flt ballZ;
     Flt ball2Y;
     Flt ball2Z;
+    Flt ballRad;
 		Global() {
 			srand((unsigned)time(NULL));
 			xres = 640, yres = 480;
 			mode = 0;
+      ballRad = 100.0;
       ballY = 40.0;
       ballZ = 340.0;
       ball2Y = 100.0;
@@ -348,7 +344,7 @@ void newinit(void)
 	o->specular = true;
 	vecMake(0.7, 0.7, 0.7, o->spec);
 	vecMake(.1, .1, .1, o->color);
-	o->radius = 100.0;
+	o->radius = g.ballRad;
 	o->surface = SURF_NONE;
 	g.nobjects++;
 	//--------------------------------------------------------------------
@@ -558,22 +554,24 @@ void lab12_animation(int nframes)
     if ( g.ballZ < 100.0) {
 
     } else {
-    //move camera
-    g.camX += 10.0;
-    g.camY += 10.0;
+      //move camera
+      g.camX += 10.0;
+      g.camY += 10.0;
     }
-    //move small sphere
-    g.ballY -= 10.0;
-    g.ballZ -= 50.0;
+      //move small sphere
+      g.ballY -= 15.0;
+      g.ballZ -= 60.0;
 
-    //send the large sphere up
+      //send the large sphere up
     if ( g.ballZ < 100.0) {
+      //increase the size of the large sphere
+      g.ballRad = 140.0;
       g.ball2Y += 25.0;
     }
 		//repeat animation
 	}
 	//Creates gif animation
-  system("convert -delay 20 -loop 0 *.jpg animation.gif");
+  system("convert -delay 10 -loop 0 *.jpg animation.gif");
 }
 //==========================================================================
 
